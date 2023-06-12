@@ -8,10 +8,15 @@ $(function () {
   var currentDate = dayjs().format("MMMM D, YYYY");
   date.innerText = currentDate;
 
+  var buttons = $(".saveBtn");
+  var timeBlock = $(".time-block");
   //uses this to point to each element in jQuery
 
+  //current hour to get from dayjs
+  var currentHour = dayjs().hour();
+
   //event listener on each button as a loop to go through all the buttons on save for each button, saves each description value in local storage
-  $(".saveBtn").on("click", function () {
+  buttons.on("click", function () {
     // Get the parent time block ID
     var blockId = $(this).parent().attr("id");
     // Get the user input in each text box description
@@ -20,10 +25,8 @@ $(function () {
     localStorage.setItem(blockId, userInput);
   });
 
-  //current hour to get from dayjs
-  var currentHour = dayjs().hour();
   //run through each block
-  $(".time-block").each(function () {
+  timeBlock.each(function () {
     var timeBlocks = $(this).attr("id");
     var hourBlock = parseInt(timeBlocks.split("-")[1]); //split the id into the integer associated with it
     console.log(hourBlock);
@@ -46,7 +49,7 @@ $(function () {
     }
   });
   //set each block with info from the page and local storage that is saved on refresh;
-  $(".time-block").each(function () {
+  timeBlock.each(function () {
     var timeBlockId = $(this).attr("id");
     var blockData = localStorage.getItem(timeBlockId);
     //if something exists in that block from the local storage then output it
